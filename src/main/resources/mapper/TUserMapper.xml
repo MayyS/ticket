@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gpnu.sw.gra.ticket.dao.TUserMapper">
+
+    <resultMap id="BaseResultMap" type="TUser">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="aid" property="aid" jdbcType="VARCHAR"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="epassword" property="epassword"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+      id, aid, username, password, email, epassword
+    </sql>
+
+    <insert id="insert" parameterType="TUser">
+        insert into t_user(id,aid,username,password,email,epassword)
+        values (#{id},#{aid},#{username},#{password},#{email},#{epassword})
+    </insert>
+
+    <insert id="insertSelective" parameterType="TUser">
+        insert  into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id !=null">id,</if>
+            <if test="aid!=null">aid,</if>
+            <if test="username !=null">username,</if>
+            <if test="password !=null">password,</if>
+            <if test="email !=null">email,</if>
+            <if test="epassword !=null">epasswrod,</if>
+        </trim>
+        <trim prefix="vaules(" suffix=")" suffixOverrides=",">
+            <if test="id!=null">#{id},</if>
+            <if test="aid!=null">#{aid},</if>
+            <if test="username!=null">#{username},</if>
+            <if test="email!=null">#{email},</if>
+            <if test="epassword!=null">#{epassword},</if>
+        </trim>
+    </insert>
+
+    <select id="selectByAid"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where aid=#{aid}
+    </select>
+
+    <delete id="deleteByAid">
+        delete from t_user
+        where aid=#{aid}
+    </delete>
+
+    <update id="updateByAId" parameterType="TUser">
+        update t_user
+        <set>
+            <if test="username!=null">username=#{username}</if>
+            <if test="password!=null">password=#{password}</if>
+            <if test="email!=null">email=#{email}</if>
+            <if test="epassword!=null">epassword=#{epassword}</if>
+        </set>
+        where aid=#{aid}
+    </update>
+</mapper>
