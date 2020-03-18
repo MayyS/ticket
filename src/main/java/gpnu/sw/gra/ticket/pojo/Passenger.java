@@ -6,31 +6,69 @@ import java.util.Date;
 /**
  * @Auther:S
  * @Date:20/3/15
+ *  "passenger_name": "邱致琳",
+ *             "sex_code": "F",
+ *             "sex_name": "女",
+ *             "born_date": "2020-01-12 00:00:00",
+ *             "country_code": "CN",
+ *             "passenger_id_type_code": "1",
+ *             "passenger_id_type_name": "中国居民身份证",
+ *             "passenger_id_no": "3607***********220",
+ *             "passenger_type": "1",
+ *             "passenger_flag": "0",
+ *             "passenger_type_name": "成人",
+ *             "mobile_no": "15902037946",
+ *             "phone_no": "",
+ *             "email": "",
+ *             "address": "",
+ *             "postalcode": "",
+ *             "first_letter": "QZL",
+ *             "recordCount": "6",
+ *             "total_times": "99",
+ *             "index_id": "1",
+ *             "allEncStr": "98dd518828376f4ed6bb045483d42c5006e0c6ce11e61af74eb1120b2fd6e23eac43bb8c6c8f2095261719d69630bf2b4748d411229501ff0338e6ba06ae03d2",
+ *             "isAdult": "Y",
+ *             "isYongThan10": "N",
+ *             "isYongThan14": "N",
+ *             "isOldThan60": "N",
+ *             "if_receive": "N",
+ *             "is_active": "N",
+ *             "is_buy_ticket": "Y",
+ *             "last_time": "20200112",
+ *             "mobile_check_time": "",
+ *             "email_active_time": "",
+ *             "last_update_time": "",
+ *             "passenger_uuid": "5a6940c681e52f13aff2c80f8026ec3ab993c8e01faacd70d4084e717523c899",
+ *             "gat_born_date": "",
+ *             "gat_valid_date_start": "",
+ *             "gat_valid_date_end": "",
+ *             "gat_version": ""
  */
 
-public class Passenger implements Serializable {
-    private String PassengerName;
+
+public class Passenger implements Serializable,Comparable{
+    private String passengerName;
     private boolean isBoy;
-    private Date BornDate;
-    private String CountryCode;
-    private String PassengerIdTypeName;
-    private String PassengerIdNo;
-    private String MobileNo;
-    private String Email;
-    private int IndexId;
-    private String AllEncStr;
-    private boolean Adult;
-    private boolean YongThan10;
-    private boolean YongThan14;
-    private boolean OldThan60;
-    private String PassengerUuid;
+    private Date bornDate;
+    private String countryCode;
+    private String passengerIdTypeName;
+    private String passengerIdNo;
+    private String mobileNo;
+    private String email;
+    private int indexId;
+    private String allEncStr;
+    private boolean adult;
+    private boolean yongThan10;
+    private boolean yongThan14;
+    private boolean oldThan60;
+    private String passengerUuid;
 
     public String getPassengerName() {
-        return PassengerName;
+        return passengerName;
     }
 
     public void setPassengerName(String passengerName) {
-        PassengerName = passengerName;
+        this.passengerName = passengerName;
     }
 
     public boolean isBoy() {
@@ -42,127 +80,132 @@ public class Passenger implements Serializable {
     }
 
     public Date getBornDate() {
-        return BornDate;
+        return bornDate;
     }
 
     public void setBornDate(Date bornDate) {
-        BornDate = bornDate;
+        this.bornDate = bornDate;
     }
 
     public String getCountryCode() {
-        return CountryCode;
+        return countryCode;
     }
 
     public void setCountryCode(String countryCode) {
-        CountryCode = countryCode;
+        this.countryCode = countryCode;
     }
 
     public String getPassengerIdTypeName() {
-        return PassengerIdTypeName;
+        return passengerIdTypeName;
     }
 
     public void setPassengerIdTypeName(String passengerIdTypeName) {
-        PassengerIdTypeName = passengerIdTypeName;
+        this.passengerIdTypeName = passengerIdTypeName;
     }
 
     public String getPassengerIdNo() {
-        return PassengerIdNo;
+        return passengerIdNo;
     }
 
     public void setPassengerIdNo(String passengerIdNo) {
-        PassengerIdNo = passengerIdNo;
+        this.passengerIdNo = passengerIdNo;
     }
 
     public String getMobileNo() {
-        return MobileNo;
+        return mobileNo;
     }
 
     public void setMobileNo(String mobileNo) {
-        MobileNo = mobileNo;
+        this.mobileNo = mobileNo;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public int getIndexId() {
-        return IndexId;
+        return indexId;
     }
 
     public void setIndexId(int indexId) {
-        IndexId = indexId;
+        this.indexId = indexId;
     }
 
     public String getAllEncStr() {
-        return AllEncStr;
+        return allEncStr;
     }
 
     public void setAllEncStr(String allEncStr) {
-        AllEncStr = allEncStr;
+        this.allEncStr = allEncStr;
     }
 
     public boolean isAdult() {
-        return Adult;
+        return adult;
     }
 
     public void setAdult(boolean adult) {
-        Adult = adult;
+        this.adult = adult;
     }
 
     public boolean isYongThan10() {
-        return YongThan10;
+        return yongThan10;
     }
 
     public void setYongThan10(boolean yongThan10) {
-        YongThan10 = yongThan10;
+        this.yongThan10 = yongThan10;
     }
 
     public boolean isYongThan14() {
-        return YongThan14;
+        return yongThan14;
     }
 
     public void setYongThan14(boolean yongThan14) {
-        YongThan14 = yongThan14;
+        this.yongThan14 = yongThan14;
     }
 
     public boolean isOldThan60() {
-        return OldThan60;
+        return oldThan60;
     }
 
     public void setOldThan60(boolean oldThan60) {
-        OldThan60 = oldThan60;
+        this.oldThan60 = oldThan60;
     }
 
     public String getPassengerUuid() {
-        return PassengerUuid;
+        return passengerUuid;
     }
 
     public void setPassengerUuid(String passengerUuid) {
-        PassengerUuid = passengerUuid;
+        this.passengerUuid = passengerUuid;
     }
 
     @Override
     public String toString() {
         return "Passenger{" +
-                "PassengerName='" + PassengerName + '\'' +
+                "passengerName='" + passengerName + '\'' +
                 ", isBoy=" + isBoy +
-                ", BornDate=" + BornDate +
-                ", CountryCode='" + CountryCode + '\'' +
-                ", PassengerIdTypeName='" + PassengerIdTypeName + '\'' +
-                ", PassengerIdNo='" + PassengerIdNo + '\'' +
-                ", MobileNo='" + MobileNo + '\'' +
-                ", Email='" + Email + '\'' +
-                ", IndexId=" + IndexId +
-                ", AllEncStr='" + AllEncStr + '\'' +
-                ", Adult=" + Adult +
-                ", YongThan10=" + YongThan10 +
-                ", YongThan14=" + YongThan14 +
-                ", OldThan60=" + OldThan60 +
-                ", PassengerUuid='" + PassengerUuid + '\'' +
+                ", bornDate=" + bornDate +
+                ", countryCode='" + countryCode + '\'' +
+                ", passengerIdTypeName='" + passengerIdTypeName + '\'' +
+                ", passengerIdNo='" + passengerIdNo + '\'' +
+                ", mobileNo='" + mobileNo + '\'' +
+                ", email='" + email + '\'' +
+                ", indexId=" + indexId +
+                ", allEncStr='" + allEncStr + '\'' +
+                ", adult=" + adult +
+                ", yongThan10=" + yongThan10 +
+                ", yongThan14=" + yongThan14 +
+                ", oldThan60=" + oldThan60 +
+                ", passengerUuid='" + passengerUuid + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.indexId-((Passenger)o).indexId;
     }
 }
