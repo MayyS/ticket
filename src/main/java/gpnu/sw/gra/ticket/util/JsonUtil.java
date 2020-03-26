@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gpnu.sw.gra.ticket.pojo.Passenger;
+import gpnu.sw.gra.ticket.pojo.TicketInfo;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -60,6 +61,21 @@ public class JsonUtil {
 
         return map;
     }
+    public static Map<String,String>jsonToStringMap(String jsonData,boolean reverse){
+        JSONObject obj=JSON.parseObject(jsonData);
+        Map<String, Object>map=obj.getInnerMap();
+        Map<String,String>mm=new HashMap<>();
+        if(reverse){
+            for (Map.Entry item:map.entrySet()){
+                mm.put(item.getValue().toString(),item.getKey().toString());
+            }
+        }else{
+            for (Map.Entry item:map.entrySet()){
+                mm.put(item.getKey().toString(),item.getValue().toString());
+            }
+        }
+        return mm;
+    }
 
     public static List<Passenger>jsonToList(String jsonData){
 //        JSONObject obj=JSON.parseObject(jsonData);
@@ -108,6 +124,44 @@ public class JsonUtil {
         passenger.setPassengerIdNo(res.get("passenger_id_no").toString());
         passenger.setPassengerIdTypeName(res.get("passenger_id_type_name").toString());
         return passenger;
+    }
+
+
+    public static List<TicketInfo> jsonToListOfTicket(String jsonData){
+        List<TicketInfo>infos=new ArrayList<>();
+        JSONArray arr=JSONObject.parseArray(jsonData);
+
+        TicketInfo ticket;
+
+        for (int i=0; i<arr.size();i++){
+            JSONObject obj=(JSONObject)arr.get(i);
+            ticket=wrapperToT(obj.getInnerMap());
+            infos.add(ticket);
+        }
+
+        return infos;
+    }
+    private static TicketInfo wrapperToT(Map<String,Object>res){
+        TicketInfo info=new TicketInfo();
+        info.setSecretStr(res.get("secretStr").toString());
+        info.setTrainNo(res.get("train_no").toString());
+        info.setNumber(res.get("车次").toString());
+        info.setQryFrm(res.get("query_from_station_name").toString());
+        info.setQryTo(res.get("query_to_station_name").toString());
+        info.setTrainLocation(res.get("train_location").toString());
+        info.setStationTrainCode(res.get("stationTrainCode").toString());
+        info.setSpecialOrBusiness(res.get("商务/特等座").toString());
+        info.setFirstClass(res.get("一等座").toString());
+        info.setSecondClass(res.get("二等座").toString());
+        info.setDogWo(res.get("动卧").toString());
+        info.setHardBerth(res.get("硬卧").toString());
+        info.setSoftBerth(res.get("软座").toString());
+        info.setNoBerth(res.get("无座").toString());
+        info.setComment(res.get("备注").toString());
+        info.setTimeStart(res.get("start_time").toString());
+        info.setTimeArrival(res.get("arrival_time").toString());
+        info.setTimeUsed(res.get("distance_time").toString());
+        return info;
     }
 
 

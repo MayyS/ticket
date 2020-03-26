@@ -2,6 +2,7 @@ package gpnu.sw.gra.ticket.controller;
 
 import com.sun.deploy.net.HttpUtils;
 import gpnu.sw.gra.ticket.common.UrlAll;
+import gpnu.sw.gra.ticket.dto.QueryObj;
 import gpnu.sw.gra.ticket.dto.base.AppResult;
 import gpnu.sw.gra.ticket.pojo.TUser;
 import gpnu.sw.gra.ticket.service.TrainService;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,7 +35,7 @@ public class TrainController {
     private TrainService trainService;
     private static final String cookieName="token";
 
-    @RequestMapping(value = "/check",method = RequestMethod.POST)
+    @RequestMapping(value = "/check",method = RequestMethod.GET)
     public AppResult check(TUser user){
         System.out.println("checked User "+user.toString());
         AppResult ar =trainService.checked(user);
@@ -53,5 +56,25 @@ public class TrainController {
         }
         AppResult ar=trainService.getPassengers(token);
         return ar;
+    }
+
+    @RequestMapping(value = "/stationNameInfo",method = RequestMethod.GET)
+    public AppResult getStationNameInfo(){
+        return trainService.stationNameInfo();
+    }
+
+    @RequestMapping(value = "/queryTicket" ,method = RequestMethod.POST)
+    public AppResult queryTicket(QueryObj queryObj){
+        String str=queryObj.getSeatTypeStr();
+        if(str!=null&&!str.isEmpty()){
+            String[] seats=str.split(",");
+            List<Integer>ss=new ArrayList<>();
+            for (int i=0; i<seats.length; i++){
+                ss.add(Integer.parseInt(seats[i]));
+            }
+            queryObj.setSeatType(ss);
+        }
+
+        return trainService.queryTicket(queryObj);
     }
 }

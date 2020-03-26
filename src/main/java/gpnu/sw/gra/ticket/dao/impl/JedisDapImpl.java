@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.JedisCluster;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @Auther:S
@@ -36,6 +37,31 @@ public class JedisDapImpl implements JedisDao {
     @Override
     public String get(String key) {
         return jedisClients.get(key);
+    }
+
+    public String hget(String k, String field){
+        return jedisClients.hget(k,field);
+    }
+
+    public Map<String, String> hgetALl(String k){
+        return jedisClients.hgetAll(k);
+    }
+
+    public Long hset(String k, String field, String val){
+        return jedisClients.hset(k,field,val);
+    }
+
+    public Long hdel(String k,String field){
+        return jedisClients.hdel(k,field);
+    }
+
+    public boolean hexist(String k, String field){
+        return jedisClients.hexists(k,field);
+    }
+
+    @Override
+    public String  hset(String k, Map<String, String> v) {
+        return jedisClients.hmset(k,v);
     }
 
     @Override

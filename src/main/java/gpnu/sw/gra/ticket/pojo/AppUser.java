@@ -8,6 +8,15 @@ public class AppUser {
     private int id;
     private String username;
     private String password;
+    private String openid;
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
 
     public int getId() {
         return id;

@@ -23,8 +23,10 @@ public interface TrainService {
 
     public AppResult getPassengers(String token);
 
-    public List<TicketInfo> queryTicket(QueryObj queryObj);
 
-    public Map<String,String> stationNameInfo();
+    public AppResult stationNameInfo();
+    public AppResult queryTicket (QueryObj queryObj);
+
+    public String getStationByChinese(String key);
 
 }

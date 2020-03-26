@@ -29,6 +29,6 @@ public interface AppUserMapper {
 
     public List<AppUser>findByName(String username);
 
-
+    public List<AppUser> findByOpenid(String openid);
 
 }

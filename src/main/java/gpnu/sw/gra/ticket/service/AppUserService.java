@@ -21,4 +21,6 @@ public interface AppUserService {
 
     public boolean existUsername(String username);
 
+    public AppUser findAppUserByOpenid(String openid);
+
 }

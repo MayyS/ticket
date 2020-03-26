@@ -1,6 +1,7 @@
 package gpnu.sw.gra.ticket.controller;
 
 import gpnu.sw.gra.ticket.dto.RegisterObj;
+import gpnu.sw.gra.ticket.dto.base.AppResult;
 import gpnu.sw.gra.ticket.pojo.AppUser;
 import gpnu.sw.gra.ticket.pojo.TUser;
 import gpnu.sw.gra.ticket.service.AppUserService;
@@ -42,16 +43,19 @@ public class AppUserController {
         return "登陆失败";
     }
 
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/register/{openid}",method = RequestMethod.GET)
     @ResponseBody
-    public String register(RegisterObj obj){
+    public AppResult register(RegisterObj obj, @PathVariable("openid") String openid){
         System.out.println(obj);
+        AppResult ar=new AppResult();
         int idx;
         if(appUserService.existUsername(obj.getAppUsername())){
-            return "username exitst";
+            ar.setMsg("用户已经存在");
+            return ar;
         }
         AppUser appUser= DepartUtil.getAppUser(obj);
         appUser.setPassword(MD5Util.MD5(appUser.getPassword()));
+        appUser.setOpenid(openid);
         System.out.println(appUser);
         if(!obj.isFast()){
             TUser tUser=DepartUtil.getTUser(obj);
@@ -59,23 +63,32 @@ public class AppUserController {
             tUser.setEpassword(SymmetricEncoder.AESEncode(tUser.getEpassword()));
             idx=appUserService.addAppUserWithTUser(tUser,appUser);
             if(idx>=2){
-                return "ok";
+                ar.setStatus(200);
+                ar.setMsg("注册成功");
+                return ar;
             }
         }
         idx=appUserService.addAppUser(appUser);
         if(idx>=1){
-            return "ok";
+            ar.setStatus(200);
+            ar.setMsg("注册成功");
+            return  ar;
         }
-        return "fail";
+        ar.setMsg("服务器繁忙");
+        return  ar;
     }
 
     @RequestMapping(value = "/checkname/{appUsername}",method = RequestMethod.GET)
     @ResponseBody
-    public String checkName(@PathVariable("appUsername") String username){
+    public AppResult checkName(@PathVariable("appUsername") String username){
+        AppResult ar=new AppResult();
         if(appUserService.existUsername(username)){
-            return "change other";
+            ar.setMsg("名字已经存在，请换别的名字");
+            return ar;
         }
-        return "pass ok";
+        ar.setStatus(200);
+        ar.setMsg("名字可用");
+        return ar;
     }
 
 }

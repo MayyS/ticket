@@ -25,6 +25,7 @@ public class AppResultDesc {
         public static final String STATUS="status";
         public static final String UAMTK="uamtk";
         public static final String USERNAME="username";
+        public static final String DATA="data";
     }
 
     public static class MyCookie{

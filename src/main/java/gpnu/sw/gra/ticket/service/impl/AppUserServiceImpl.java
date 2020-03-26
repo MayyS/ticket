@@ -77,4 +77,13 @@ public class AppUserServiceImpl implements AppUserService {
         List<AppUser>users=appUserMapper.findByName(username);
         return users.size()>0;
     }
+
+    @Override
+    public AppUser findAppUserByOpenid(String openid) {
+        List<AppUser>users=appUserMapper.findByOpenid(openid);
+        if(users.size()>0){
+            return users.get(0);
+        }
+        return null;
+    }
 }

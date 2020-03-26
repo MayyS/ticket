@@ -24,12 +24,21 @@ import java.util.List;
 public class QueryObj {
     private String fromH;
     private String toH;
-    private List<Date>dates;
+    private List<String>dates;
     private int numOfPassengers;
     private String from;
     private String to;
     private List<String>trains;
+    private String seatTypeStr;
     private List<Integer>seatType;
+
+    public String getSeatTypeStr() {
+        return seatTypeStr;
+    }
+
+    public void setSeatTypeStr(String seatTypeStr) {
+        this.seatTypeStr = seatTypeStr;
+    }
 
     public String getFromH() {
         return fromH;
@@ -47,11 +56,11 @@ public class QueryObj {
         this.toH = toH;
     }
 
-    public List<Date> getDates() {
+    public List<String> getDates() {
         return dates;
     }
 
-    public void setDates(List<Date> dates) {
+    public void setDates(List<String> dates) {
         this.dates = dates;
     }
 

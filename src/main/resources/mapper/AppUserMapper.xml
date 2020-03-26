@@ -20,8 +20,8 @@
     </select>
 
     <insert id="insert" parameterType="AppUser" useGeneratedKeys="true" keyProperty="id">
-        insert into app_user(username,password)
-        values (#{username},#{password})
+        insert into app_user(username,password,openid)
+        values (#{username},#{password},#{openid})
     </insert>
 
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
@@ -30,11 +30,13 @@
             <if test="id!=null">id,</if>
             <if test="username!=null">username,</if>
             <if test="password!=null">password,</if>
+            <if test="openid!=null">openid,</if>
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
             <if test="id!=null">#{id},</if>
             <if test="username!=null">#{username},</if>
             <if test="password!=null">#{password},</if>
+            <if test="openid!=null">#{openid}</if>
         </trim>
     </insert>
 
@@ -43,6 +45,7 @@
         <set>
             <if test="username!=null">username=#{username}</if>
             <if test="password!=null">password=#{password}</if>
+            <if test="openid!=null">openid=#{openid}</if>
         </set>
         where id=#{id}
     </update>
@@ -51,6 +54,13 @@
         delete from app_user
         where id=#{id}
     </delete>
+
+    <select id="findByOpenid" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from app_user
+        where openid=#{openid}
+    </select>
 
     <select id="findByNameAndPwd" parameterType="AppUser" resultMap="BaseResultMap">
         select

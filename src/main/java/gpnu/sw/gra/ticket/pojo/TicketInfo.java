@@ -25,132 +25,159 @@ package gpnu.sw.gra.ticket.pojo;
 * */
 
 public class TicketInfo {
-    private String SecretStr;
-    private String TrainNo;
-    private String Number;
-    private String QryFrm;
-    private String QryTo;
-    private String TrainLocation;
-    private String StationTrainCode;
-    private String SpecialOrBusiness;
-    private String FirstClass;
-    private String SecondClass;
-    private String DogWo;
-    private String HardBerth;
-    private String SoftBerth;
-    private String NoBerth;
+    private String secretStr;
+    private String trainNo;
+    private String number;
+    private String qryFrm;
+    private String qryTo;
+    private String trainLocation;
+    private String stationTrainCode;
+    private String specialOrBusiness;
+    private String firstClass;
+    private String secondClass;
+    private String dogWo;
+    private String hardBerth;
+    private String softBerth;
+    private String noBerth;
     private String comment;
+    private String timeStart;
+    private String timeArrival;
+    private String timeUsed;
+
+    public String getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(String timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public String getTimeArrival() {
+        return timeArrival;
+    }
+
+    public void setTimeArrival(String timeArrival) {
+        this.timeArrival = timeArrival;
+    }
+
+    public String getTimeUsed() {
+        return timeUsed;
+    }
+
+    public void setTimeUsed(String timeUsed) {
+        this.timeUsed = timeUsed;
+    }
 
     public String getSecretStr() {
-        return SecretStr;
+        return secretStr;
     }
 
     public void setSecretStr(String secretStr) {
-        SecretStr = secretStr;
+        this.secretStr = secretStr;
     }
 
     public String getTrainNo() {
-        return TrainNo;
+        return trainNo;
     }
 
     public void setTrainNo(String trainNo) {
-        TrainNo = trainNo;
+        this.trainNo = trainNo;
     }
 
     public String getNumber() {
-        return Number;
+        return number;
     }
 
     public void setNumber(String number) {
-        Number = number;
+        this.number = number;
     }
 
     public String getQryFrm() {
-        return QryFrm;
+        return qryFrm;
     }
 
     public void setQryFrm(String qryFrm) {
-        QryFrm = qryFrm;
+        this.qryFrm = qryFrm;
     }
 
     public String getQryTo() {
-        return QryTo;
+        return qryTo;
     }
 
     public void setQryTo(String qryTo) {
-        QryTo = qryTo;
+        this.qryTo = qryTo;
     }
 
     public String getTrainLocation() {
-        return TrainLocation;
+        return trainLocation;
     }
 
     public void setTrainLocation(String trainLocation) {
-        TrainLocation = trainLocation;
+        this.trainLocation = trainLocation;
     }
 
     public String getStationTrainCode() {
-        return StationTrainCode;
+        return stationTrainCode;
     }
 
     public void setStationTrainCode(String stationTrainCode) {
-        StationTrainCode = stationTrainCode;
+        this.stationTrainCode = stationTrainCode;
     }
 
     public String getSpecialOrBusiness() {
-        return SpecialOrBusiness;
+        return specialOrBusiness;
     }
 
     public void setSpecialOrBusiness(String specialOrBusiness) {
-        SpecialOrBusiness = specialOrBusiness;
+        this.specialOrBusiness = specialOrBusiness;
     }
 
     public String getFirstClass() {
-        return FirstClass;
+        return firstClass;
     }
 
     public void setFirstClass(String firstClass) {
-        FirstClass = firstClass;
+        this.firstClass = firstClass;
     }
 
     public String getSecondClass() {
-        return SecondClass;
+        return secondClass;
     }
 
     public void setSecondClass(String secondClass) {
-        SecondClass = secondClass;
+        this.secondClass = secondClass;
     }
 
     public String getDogWo() {
-        return DogWo;
+        return dogWo;
     }
 
     public void setDogWo(String dogWo) {
-        DogWo = dogWo;
+        this.dogWo = dogWo;
     }
 
     public String getHardBerth() {
-        return HardBerth;
+        return hardBerth;
     }
 
     public void setHardBerth(String hardBerth) {
-        HardBerth = hardBerth;
+        this.hardBerth = hardBerth;
     }
 
     public String getSoftBerth() {
-        return SoftBerth;
+        return softBerth;
     }
 
     public void setSoftBerth(String softBerth) {
-        SoftBerth = softBerth;
+        this.softBerth = softBerth;
     }
 
     public String getNoBerth() {
-        return NoBerth;
+        return noBerth;
     }
 
     public void setNoBerth(String noBerth) {
-        NoBerth = noBerth;
+        this.noBerth = noBerth;
     }
 
     public String getComment() {
@@ -164,21 +191,24 @@ public class TicketInfo {
     @Override
     public String toString() {
         return "TicketInfo{" +
-                "SecretStr='" + SecretStr + '\'' +
-                ", TrainNo='" + TrainNo + '\'' +
-                ", Number='" + Number + '\'' +
-                ", QryFrm='" + QryFrm + '\'' +
-                ", QryTo='" + QryTo + '\'' +
-                ", TrainLocation='" + TrainLocation + '\'' +
-                ", StationTrainCode='" + StationTrainCode + '\'' +
-                ", SpecialOrBusiness='" + SpecialOrBusiness + '\'' +
-                ", FirstClass='" + FirstClass + '\'' +
-                ", SecondClass='" + SecondClass + '\'' +
-                ", DogWo='" + DogWo + '\'' +
-                ", HardBerth='" + HardBerth + '\'' +
-                ", SoftBerth='" + SoftBerth + '\'' +
-                ", NoBerth='" + NoBerth + '\'' +
+                "secretStr='" + secretStr + '\'' +
+                ", trainNo='" + trainNo + '\'' +
+                ", number='" + number + '\'' +
+                ", qryFrm='" + qryFrm + '\'' +
+                ", qryTo='" + qryTo + '\'' +
+                ", trainLocation='" + trainLocation + '\'' +
+                ", stationTrainCode='" + stationTrainCode + '\'' +
+                ", specialOrBusiness='" + specialOrBusiness + '\'' +
+                ", firstClass='" + firstClass + '\'' +
+                ", secondClass='" + secondClass + '\'' +
+                ", dogWo='" + dogWo + '\'' +
+                ", hardBerth='" + hardBerth + '\'' +
+                ", softBerth='" + softBerth + '\'' +
+                ", noBerth='" + noBerth + '\'' +
                 ", comment='" + comment + '\'' +
+                ", timeStart='" + timeStart + '\'' +
+                ", timeArrival='" + timeArrival + '\'' +
+                ", timeUsed='" + timeUsed + '\'' +
                 '}';
     }
 }
