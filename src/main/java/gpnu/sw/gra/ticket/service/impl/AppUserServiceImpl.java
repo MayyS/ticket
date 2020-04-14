@@ -5,6 +5,7 @@ import gpnu.sw.gra.ticket.dao.TUserMapper;
 import gpnu.sw.gra.ticket.pojo.AppUser;
 import gpnu.sw.gra.ticket.pojo.TUser;
 import gpnu.sw.gra.ticket.service.AppUserService;
+import gpnu.sw.gra.ticket.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,6 +55,9 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public int updateAppUser(AppUser user) {
+        if(user.getPassword()!=null||!user.getPassword().isEmpty()){
+            user.setPassword(MD5Util.MD5(user.getPassword()));
+        }
         return appUserMapper.updateById(user);
     }
 
@@ -85,5 +89,9 @@ public class AppUserServiceImpl implements AppUserService {
             return users.get(0);
         }
         return null;
+    }
+
+    public int findAidByOpenid(String openid){
+        return appUserMapper.findAidByOpenid(openid);
     }
 }

@@ -19,12 +19,12 @@ public class TUserServiceImpl implements TUserService {
 
     @Override
     public int updateTUser(TUser tUser) {
-        return 0;
+        return tUserMapper.updateById(tUser);
     }
 
     @Override
     public TUser findTUserfindAid(int aid) {
-        return null;
+        return tUserMapper.selectByAid(aid);
     }
 
     @Override

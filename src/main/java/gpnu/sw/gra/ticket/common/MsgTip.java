@@ -11,11 +11,13 @@ public enum MsgTip {
     EGETPSGER(404,"获取失败，稍后重试"),
     EQUERY(404,"查询失败"),
     EQEYTICKET(404,"车票已经售空"),
+    EMODIFYOK(404,"修改失败"),
     QUERY(200,"查询成功"),
     LOGIN(200,"登陆成功"),
     GETPSGER(200,"获取成功"),
     GETSTATION(200,"获取站信息成功"),
     QEYTICKET(200,"查询车票成功"),
+    MODIFYOK(200,"修改成功"),
     CECKED(200,"验证正确");
 
     private int code;

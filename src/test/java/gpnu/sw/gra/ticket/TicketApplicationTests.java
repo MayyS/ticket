@@ -11,7 +11,11 @@ class TicketApplicationTests {
         String mgs="nihao%s";
         String mm=String.format(mgs,"12");
         System.out.println(mm);
+        char ch;
+        for(int i=0; i<26 ; i++){
+            ch= (char) ('a'+i);
 
+        }
     }
 
 }

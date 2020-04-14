@@ -16,6 +16,8 @@ public interface TUserMapper {
 
     public int updateByAId(TUser tUser);
 
+    public int updateById(TUser tUser);
+
     public int insert(TUser tUser);
 
     public int insertSelective(TUser user);

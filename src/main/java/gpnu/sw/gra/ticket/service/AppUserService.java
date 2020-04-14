@@ -17,6 +17,8 @@ public interface AppUserService {
 
     public AppUser findAppUserById(AppUser user);
 
+    public int findAidByOpenid(String openid);
+
     public AppUser findAppUserByPasswordAndUsername(AppUser appUser);
 
     public boolean existUsername(String username);

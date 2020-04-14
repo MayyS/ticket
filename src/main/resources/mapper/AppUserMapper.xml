@@ -43,9 +43,9 @@
     <update id="updateById">
         update app_user
         <set>
-            <if test="username!=null">username=#{username}</if>
-            <if test="password!=null">password=#{password}</if>
-            <if test="openid!=null">openid=#{openid}</if>
+            <if test="username!=null">username=#{username},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="openid!=null">openid=#{openid},</if>
         </set>
         where id=#{id}
     </update>
@@ -74,5 +74,10 @@
         <include refid="Base_Column_List"/>
         from app_user
         where username=#{username}
+    </select>
+    <select id="findAidByOpenid" resultType="int">
+        select id
+        from app_user
+        where openid=#{openid}
     </select>
 </mapper>

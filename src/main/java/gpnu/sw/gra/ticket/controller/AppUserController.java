@@ -1,5 +1,6 @@
 package gpnu.sw.gra.ticket.controller;
 
+import gpnu.sw.gra.ticket.common.MsgTip;
 import gpnu.sw.gra.ticket.dto.RegisterObj;
 import gpnu.sw.gra.ticket.dto.base.AppResult;
 import gpnu.sw.gra.ticket.pojo.AppUser;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sun.plugin2.util.PojoUtil;
 import sun.security.provider.MD5;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Auther:S
@@ -88,6 +92,37 @@ public class AppUserController {
         }
         ar.setStatus(200);
         ar.setMsg("名字可用");
+        return ar;
+    }
+
+
+    @RequestMapping(value = "/appUser/get/{openid}",method = RequestMethod.GET)
+    @ResponseBody
+    public AppResult getAppUser(@PathVariable("openid") String openid){
+        AppResult ar=new AppResult();
+        Map<String,String>result=new HashMap<>();
+        AppUser user=appUserService.findAppUserByOpenid(openid);
+        if(user==null){
+            ar.setStatus(404);
+            return ar;
+        }
+        result.put("key",String.valueOf(user.getId()));
+        result.put("v1",user.getUsername());
+        result.put("v2",user.getPassword());
+        ar.setStatus(200);
+        ar.setObj(result);
+        return ar;
+    }
+    @RequestMapping(value = "/appUser/update/", method = RequestMethod.POST)
+    @ResponseBody
+    public AppResult updateAppUser(AppUser user){
+        AppResult ar=new AppResult();
+        int ok=appUserService.updateAppUser(user);
+        if(ok>0){
+            ar.setStatus(MsgTip.MODIFYOK.getCode());
+            ar.setMsg(MsgTip.MODIFYOK.getMsg());
+            return ar;
+        }
         return ar;
     }
 

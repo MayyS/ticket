@@ -46,6 +46,8 @@
         where aid=#{aid}
     </select>
 
+
+
     <delete id="deleteByAid">
         delete from t_user
         where aid=#{aid}
@@ -54,11 +56,23 @@
     <update id="updateByAId" parameterType="TUser">
         update t_user
         <set>
-            <if test="username!=null">username=#{username}</if>
-            <if test="password!=null">password=#{password}</if>
-            <if test="email!=null">email=#{email}</if>
-            <if test="epassword!=null">epassword=#{epassword}</if>
+            <if test="username!=null">username=#{username},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="email!=null">email=#{email},</if>
+            <if test="epassword!=null">epassword=#{epassword},</if>
         </set>
         where aid=#{aid}
     </update>
+
+    <update id="updateById" parameterType="TUser">
+        update t_user
+        <set>
+            <if test="username!=null">username=#{username},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="email!=null">email=#{email},</if>
+            <if test="epassword!=null">epassword=#{epassword},</if>
+        </set>
+        where id=#{id}
+    </update>
+
 </mapper>
