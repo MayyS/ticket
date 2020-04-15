@@ -32,4 +32,13 @@ public class AppResult  {
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
+    @Override
+    public String toString() {
+        return "AppResult{" +
+                "status=" + status +
+                ", obj=" + obj +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
 }

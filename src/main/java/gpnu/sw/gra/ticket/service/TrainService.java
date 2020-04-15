@@ -19,7 +19,7 @@ public interface TrainService {
 
     public AppResult checked(TUser user);
 
-    public AppResult login(TUser user, HttpServletRequest req, HttpServletResponse res);
+    public AppResult login(TUser user, HttpServletRequest req, HttpServletResponse res,String key);
 
     public AppResult getPassengers(String token);
 

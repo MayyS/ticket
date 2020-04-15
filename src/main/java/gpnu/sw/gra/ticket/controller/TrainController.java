@@ -44,7 +44,7 @@ public class TrainController {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public AppResult login(TUser user, HttpServletRequest req, HttpServletResponse res){
-        AppResult ar=trainService.login(user,req,res);
+        AppResult ar=trainService.login(user,req,res,null);
         return ar;
     }
 

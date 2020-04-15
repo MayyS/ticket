@@ -13,6 +13,7 @@ import gpnu.sw.gra.ticket.service.TrainService;
 import gpnu.sw.gra.ticket.util.CookieUtils;
 import gpnu.sw.gra.ticket.util.HttpClientUtil;
 import gpnu.sw.gra.ticket.util.JsonUtil;
+import gpnu.sw.gra.ticket.util.SymmetricEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,7 @@ public class TrainServiceImpl implements TrainService {
 
     private static final int outTime=60*60*24;
     private static final String cookieName="token";
+    private static final String PREFIX="psg_";
     private static final String pre=UrlAll.PRE.getName();
     private static final String STATINFO_REVERSE="stationInfo_reverse";
     private static final String STATINFO="stationInfo";
@@ -49,7 +51,7 @@ public class TrainServiceImpl implements TrainService {
             return params;
         }
         params.put("username",user.getUsername());
-        params.put("password",user.getPassword());
+        params.put("password", SymmetricEncoder.AESDecode(user.getPassword()));
         return params;
     }
 
@@ -83,9 +85,8 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
-    public AppResult login(TUser user, HttpServletRequest req, HttpServletResponse res) {
+    public AppResult login(TUser user, HttpServletRequest req, HttpServletResponse res,String bkey) {
         AppResult ar=new AppResult();
-
         //url
         String url=pre+UrlAll.LOGIN.getName();
         //param
@@ -98,11 +99,18 @@ public class TrainServiceImpl implements TrainService {
 
         if(reps.size()>0&&reps.get(AppResultDesc.Rep.STATUS).toString().equals("200")){
             ar.setStatus(200);
-            String key= UUID.randomUUID().toString();
+            //生成cookie的key
+            String key= bkey==null?UUID.randomUUID().toString():bkey;
+            //method2、使用用户帐号做key
+            //将cookie的值json格式化
             String vaule=JsonUtil.objectToJson(mp.get(AppResultDesc.REQ_COOKIES));
+            //存入redis缓存中
             jedisDaoImpl.set(key,vaule);
             jedisDaoImpl.expire(key,outTime);
-            CookieUtils.setCookie(req,res,cookieName,key,outTime);
+            //将key设置到请求头去
+            if(bkey==null){
+                CookieUtils.setCookie(req,res,cookieName,key,outTime);
+            }
             ar.setMsg(MsgTip.LOGIN.getMsg());
             ar.setObj(reps);
         }else{
@@ -115,15 +123,27 @@ public class TrainServiceImpl implements TrainService {
     @Override
     public AppResult getPassengers(String token) {
         AppResult ar=new AppResult();
+        String result;
+        //判断缓存中是否存在，其键设置为psg_+toke值
+        String key=PREFIX+token;
+        if(jedisDaoImpl.exists(key)){
+            ar.setStatus(MsgTip.GETPSGER.getCode());
+            ar.setMsg(MsgTip.GETPSGER.getMsg());
+            result=jedisDaoImpl.get(key);
+            ar.setObj(JsonUtil.jsonToList(result));
+            return ar;
+        }
 
+        //如果查找不到则发起请求
         String url=pre+UrlAll.PASSENGERS.getName();
 
+        //从缓存中获得token
         Map<String,String>param=new HashMap<>();
         String value=jedisDaoImpl.get(token);
         param.put(cookieName,value);
 
-
-        String result=HttpClientUtil.doPost(url,param);
+        //尝试10次机会去发起网络请求
+        result=HttpClientUtil.doPost(url,param);
         Map<String,Object>rmp=JsonUtil.jsonToMap(result);
         int trycn=10;
         while (rmp!=null&&!rmp.get(AppResultDesc.Rep.STATUS).equals(200)&&trycn-->0){
@@ -132,11 +152,15 @@ public class TrainServiceImpl implements TrainService {
 
         }
         List<Passenger>passengers;
+
+        //如果还有次数没有用完，就说明请求ok
         if(trycn>0){
+            ar.setStatus(MsgTip.GETPSGER.getCode());
             ar.setMsg(MsgTip.GETPSGER.getMsg());
             //passengers=JsonUtil.jsonToList( rmp.get(AppResultDesc.DATA).toString(),Passenger.class);
             passengers=JsonUtil.jsonToList(rmp.get(AppResultDesc.DATA).toString());
-
+            //存放到缓存中
+            jedisDaoImpl.set(key,rmp.get(AppResultDesc.DATA).toString());
             ar.setObj(passengers);
         }else{
             ar.setMsg(MsgTip.EGETPSGER.getMsg());
